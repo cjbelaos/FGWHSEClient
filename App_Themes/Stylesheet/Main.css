@@ -1,0 +1,536 @@
+﻿
+#datetimeDiv
+{
+	padding-top:5px;
+}
+
+.datetime
+{
+    font-family: Calibri;
+	font-size: 15px;
+	font-weight:normal;
+	color: #000000;
+	text-align:right;
+	margin-right:5px;
+	/*vertical-align:text-bottom;*/
+}
+
+
+#welcomename
+{
+    color: Blue;
+	float: right;
+    font-size: 13px;
+    margin-right: 5px;
+    padding-top:5px;
+    font-weight:bolder;
+}
+
+#welcome
+{
+    text-align:right;
+    float: right;
+    color: #000000;
+    font-size: 15px;
+    margin-right: 10px;
+    padding-top:5px;
+}
+
+.divInput
+{
+	
+	width:280pt;
+	border: solid 2px #808080;
+	padding-bottom:5px;
+	margin-left:10px;
+}
+
+.divInput2
+{
+	
+	/*width:300pt;*/
+	border: solid 2px #808080;
+	padding-bottom:5px;
+	margin-left:10px;
+}
+
+.divInput3
+{
+	
+	/*width:320pt;*/
+	border: solid 2px #808080;
+	padding-bottom:5px;
+	margin-left:10px;
+}
+
+.divInputContainer
+{
+	
+	width:340pt;
+	border: solid 2px #808080;
+	padding-bottom:5px;
+	margin-left:10px;
+}
+
+.divLocMaster
+{
+	
+	width:310pt;
+	border: solid 2px #808080;
+	padding-bottom:5px;
+	margin-left:10px;
+}
+
+
+.lblSystemNameLogin
+{
+    font-family: Arial;
+	font-size: 16;
+	font-weight: bold;
+	color: #363A90;
+	text-align:right;
+}
+
+
+.btnLoginGuest
+{
+	text-align:center;
+}
+
+
+.about
+{
+	font-family: Calibri;
+	color:White;
+	font-size:small;
+	font-style:normal;
+	font-weight:bold;
+	text-align:center;
+}
+
+
+.pnlHeader
+{
+    border-style:solid;
+    border-width:thin;
+    border-color:#0a5b93;
+    background-color:#cfecff;
+    color: #363A90;
+    width:350px;
+    height:20px;
+    text-align:left;
+    font-size: 15px;
+}
+
+.pnlShowApproval
+{
+    background-color:white;
+    width:350px;
+    color: #363A90;
+    border-style:solid;
+	border-width:thin;
+	border-color:#0a5b93;
+}
+
+
+.style2
+{
+    font-family: Calibri;
+    color: Black;
+    font-size: 16px;
+    width: 147px;
+}
+        
+.style3
+{
+    width: 147px;
+}
+        
+        
+      
+        
+ .watermarked
+{
+  background-color:gray;
+  filter:alpha(opacity=90);
+  opacity:0.90;
+}       
+        
+ /*--------------------------------------------------------*/
+
+
+
+
+        * {margin:0;padding:0;}
+    
+        body
+        {
+            background-color:#808080;
+            scrollbar-face-color: #3366CC;
+            scrollbar-highlight-color:#e2e5e7;
+            scrollbar-arrow-color: #FFCC00;
+        }
+    
+        #banner
+        {
+            width : 1200px;
+            height : 50px;         
+             /* background-color: #FFCC00;*/
+             background-color:BlanchedAlmond;
+            border-style: solid;
+            border-left: solid;   
+            border-right: solid;  
+            border-top: solid;
+            border-color:#bbbbbb; 
+            
+        }
+
+        #banner img
+        {
+            border:none;
+        }     
+        
+   
+
+        .systemLogo
+        {
+            height:50px;
+            vertical-align:middle;
+        }
+
+        .systemName
+        {
+            font-family: Gill Sans MT;
+	        font-size: x-large;
+	        font-weight:bold;
+	        /* color: #808080; */
+	        color: black;
+        }
+        
+        /* -- BUTTON -- 
+        .buttonClass
+        {
+            padding: 2px 20px;
+            text-decoration: none;
+            border: solid 1px #003399;
+            background-color: #f9fbff;
+            color: #000;
+        }
+        .buttonClass:hover
+        {
+            border: groove 2px #FFCC00;
+            background-color: #f9fbff;
+        }
+        .buttonClass[disabled=disabled]
+        {
+            padding: 2px 20px;
+            text-decoration: none;
+            color: gray;
+            border: solid 1px #003399;
+            background-color: #e7e7e7;
+        }
+        .buttonClass[disabled=disabled]:hover
+        {
+            padding: 2px 20px;
+            text-decoration: none;
+            color: gray;
+            border: solid 1px #003399;
+            background-color: #e7e7e7;
+        }
+        
+        /* -- MENU -- */
+
+
+		#HTsddm
+        {	
+	        
+	        list-style: none;
+			padding: 0 0px;
+			margin: 0;
+			float: left;
+			width: 100%;
+			font-size:12px;
+        }
+        
+        #HTsddm li
+        {	margin: 0;
+	        padding: 0;
+	        list-style: none;
+	        float: left;
+	        font: bold 11px arial
+        }
+
+        #HTsddm li a
+        {	display: block;
+	        background: #dcdcdc;/*1111111111111111111111111111111111*/
+	        margin: 0 3px 0 0;
+	        color: #034af3;
+	        text-align: center;
+	        text-decoration: none;
+	        padding: 0px 10px 0px 5px; 
+            line-height: 2.4em;
+            font-family: Tahoma;
+            font-size: 10px;
+            font-weight:bold;    
+            
+        }
+
+        #HTsddm li a:hover
+        {	
+            background-color: #FFCC00;
+        }
+
+        #HTsddm div
+        {	
+            position: absolute;
+	        visibility: hidden;
+	        margin: 0 0 0 5px;
+	        padding: 0;
+	        background: #dcdcdc;/*11111111111111111111111111111111111*/
+	        border: 3px solid #e2e5e7}
+
+	        #HTsddm div a
+	        {	position: relative;
+		        display: block;
+		        margin: 0;
+		        padding: 3px 5px;
+		        width: auto;
+		        white-space: nowrap;
+		        text-align: left;
+		        text-decoration: none;
+		        background: #dcdcdc;/*111111111111111111111111111111*/
+		        color: #2875DE;
+                font-family: Tahoma;
+                font-size: 10px;
+            }
+
+	        #HTsddm div a:hover
+	        {	
+		        color: #FFF;
+                background-color: #49A3FF;
+		        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        #sddm
+        {	
+	        
+	        list-style: none;
+			padding: 0 10px;
+			margin: 0;
+			float: left;
+			width: 100%;
+			font-size:12px;
+        }
+
+        #sddm li
+        {	margin: 0;
+	        padding: 0;
+	        list-style: none;
+	        float: left;
+	        font: bold 11px arial
+        }
+
+        #sddm li a
+        {	display: block;
+	        background: #dcdcdc;/*1111111111111111111111111111111111*/
+	        margin: 0 3px 0 0;
+	        color: #034af3;
+	        text-align: center;
+	        text-decoration: none;
+	        padding: 0px 10px 0px 5px; 
+            line-height: 2.4em;
+            font-family: Tahoma;
+            font-size: 10px;
+            font-weight:bold;    
+            
+        }
+
+        #sddm li a:hover
+        {	
+            background-color: #FFCC00;
+        }
+
+        #sddm div
+        {	
+            position: absolute;
+	        visibility: hidden;
+	        margin: 0 0 0 5px;
+	        padding: 0;
+	        background: #dcdcdc;/*11111111111111111111111111111111111*/
+	        border: 3px solid #e2e5e7}
+
+	        #sddm div a
+	        {	position: relative;
+		        display: block;
+		        margin: 0;
+		        padding: 3px 5px;
+		        width: auto;
+		        white-space: nowrap;
+		        text-align: left;
+		        text-decoration: none;
+		        background: #dcdcdc;/*111111111111111111111111111111*/
+		        color: #2875DE;
+                font-family: Tahoma;
+                font-size: 10px;
+            }
+
+	        #sddm div a:hover
+	        {	
+		        color: #FFF;
+                background-color: #49A3FF;
+		        }
+
+        #MainMenu
+        {
+            width : 1200px;
+            height : 25px;
+
+            background-color:#dcdcdc;/*111111111111111111111111111111*/
+            text-align:left;
+            
+            border-left: medium solid #bbbbbb;   
+            border-right: medium solid #bbbbbb;  
+            border-top: medium none #bbbbbb;
+            border-bottom:medium solid #bbbbbb;
+}
+
+		#MainMenuHT
+        {
+            width : 1200px;
+            height : 27px;
+
+            background-color:#dcdcdc;/*111111111111111111111111111111*/
+            text-align:left;
+            
+            border-left: medium solid #bbbbbb;   
+            border-right: medium solid #bbbbbb;  
+            border-top: medium none #bbbbbb;
+            border-bottom:medium solid #bbbbbb;
+}
+
+        ul#menu
+        {
+        padding: 0px;
+        position: relative;
+        margin: 0;
+        }
+
+        ul#menu li
+        {
+        display: inline;
+        }
+
+        ul#menu li a 
+        {
+            background-color:#e2e5e7;
+            padding: 5px 5px;
+            text-decoration: none;
+            line-height: 2.4em;
+            color: #034af3;
+            
+            font-family: Tahoma;
+            font-size: 10px;
+
+        }
+
+        ul#menu li a:hover
+        {
+
+            background-color: #dbebf4;
+        } 
+     
+        
+        /*CONTENT*/
+        
+        #content
+        {
+            width : 1200px;
+	        background-color: White;
+            font-family: Tahoma;
+	        font-size: 30;
+	        font-weight:bold;
+	        color: #363A90;
+	        text-align:left;
+            border-left: solid;   
+            border-right: solid;  
+            border-color:#bbbbbb;
+        }
+
+                
+        #footer
+        {
+	        font-family: Calibri;
+	        color:Gray;
+	        font-size:small;
+	        font-style:normal;
+	        font-weight:bold;
+	        text-align:center;
+	        padding-top: 15px;
+	        padding-bottom: 5px;
+	        background-color: White;
+	        width: 1200px;
+
+	        border-left: solid;   
+            border-right: solid;  
+            border-bottom: solid;
+            border-color:#bbbbbb;
+            
+        }
+        
+.buttonStyle
+{
+	
+	background-color: #4f81bd;
+	Color: White;
+	Font-Weight:bold;
+	Font-Size:14px;
+}
+.messageStyle
+{
+    background-color:#d9d9d9;
+    Font-Weight:normal;
+   /* font-size:14px;*/
+}
+
+
+.modalQty
+{
+    background-color: Black;
+    filter: alpha(opacity=70);
+    opacity: 0.8;
+}
+
+.buttonStyle
+{
+	/*background-color:#afea91;*/
+	/*background-color:#dedcdf;*/
+	background-image: linear-gradient(225deg, #19314d, #1f709b);
+	/*border: solid 5px #79ad5f;*/
+	/*border: solid 5px #dedcdf;*/
+	color:Black;
+	z-index:400;
+}
+
+@font-face {
+            font-family: Code128;
+            src: url(V100001.ttf);           
+           
+        }
+        
+.barcode {
+font-family: Code128;
+}

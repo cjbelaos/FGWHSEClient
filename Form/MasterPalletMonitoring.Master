@@ -1,0 +1,452 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPalletMonitoring.master.cs" Inherits="FGWHSEClient.Form.MasterPalletMonitoring" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>WHSE System</title>
+
+    <link href="../Style/jquery-ui-1.8.5.custom.css" rel="stylesheet" type="text/css" />
+    <link href="../Style/menu.css" rel="stylesheet" type="text/css" />
+    <link href="../Style/menu2.css" rel="stylesheet" type="text/css" />
+    <link href="../Style/StyleSheet.css" rel="stylesheet" type="text/css" />
+    <link href="../Style/jquery.jexcel.css" rel="stylesheet" type="text/css" />
+    <link href="../Style/jquery.jcalendar.min.css" rel="stylesheet" type="text/css" />
+    <link href="../Style/jquery.jdropdown.min.css" rel="stylesheet" type="text/css" />
+    <link href="../Style/jsuites.css" rel="stylesheet" type="text/css" />
+    <link href="../Style/jexcel.css" rel="stylesheet" type="text/css" />
+    <link href="../Style/handsontable.css" rel="stylesheet" type="text/css" />
+    <link href="../Style/jquery.modal.min.css" rel="stylesheet" type="text/css" />
+    <link href="../Style/chosen.css" rel="stylesheet" type="text/css" />
+    <link href="../Style/PSI_Style.css" rel="stylesheet" type="text/css" />
+
+    <script src="../js/jquery/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="../css/customize-template.css" type="text/css" media="screen, projection" rel="stylesheet" />
+    <link rel="Shortcut Icon" href="../Image/iconS.png" type="image/x-icon" />
+
+
+    <asp:ContentPlaceHolder ID="css" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <link type="text/css" rel="Stylesheet" href="../App_Themes/Stylesheet/Main.css" />
+
+
+        <script type="text/javascript">
+            function startTime() {
+                var today = new Date();
+                var h = today.getHours();
+                var m = today.getMinutes();
+                var s = today.getSeconds();
+
+                var date = today.toDateString();
+
+                // add a zero in front of numbers<10
+                m = checkTime(m);
+                s = checkTime(s);
+                document.getElementById('ctl00_datetime').innerHTML = "Current Date : " + date + " " + h + ":" + m + ":" + s;
+
+
+
+                t = setTimeout(function () { startTime() }, 500);
+            }
+
+            function checkTime(i) {
+                if (i < 10) {
+                    i = "0" + i;
+                }
+                return i;
+            }
+
+
+
+
+            //Menu
+            // Copyright 2006-2007 javascript-array.com
+
+            var timeout = 500;
+            var closetimer = 0;
+            var ddmenuitem = 0;
+
+            // open hidden layer
+            function mopen(id) {
+                // cancel close timer
+                mcancelclosetime();
+
+                // close old layer
+                if (ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+
+                // get new layer and show it
+                ddmenuitem = document.getElementById(id);
+                ddmenuitem.style.visibility = 'visible';
+
+            }
+            // close showed layer
+            function mclose() {
+                if (ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+            }
+
+            // go close timer
+            function mclosetime() {
+                closetimer = window.setTimeout(mclose, timeout);
+            }
+
+            // cancel close timer
+            function mcancelclosetime() {
+                if (closetimer) {
+                    window.clearTimeout(closetimer);
+                    closetimer = null;
+                }
+            }
+
+            // close layer when click-out
+            document.onclick = mclose;
+
+
+
+
+        </script>
+
+    </asp:ContentPlaceHolder>
+
+</head>
+<body onload="startTime()" background="../Image/bg.png">
+    <form id="form1" runat="server">
+
+        <ajaxToolkit:ToolkitScriptManager runat="Server" EnablePartialRendering="true" ID="ScriptManager1" ScriptMode="Release" />
+
+        <div>
+
+
+            <div id="main" align="center">
+
+                <div id="banner" align="left">
+                    <div style="width: 75%; float: left">
+                        <img src="../Image/logo_medium_strapline.png" alt="EPSON" class="systemLogo" />
+                        <span>
+                            <img id="Img1" src="~/Image/icon.png" runat="server" class="systemLogo" />
+                            &nbsp;  
+                    <asp:Label ID="lbl_systemName" runat="server" CssClass="systemName" Text="Warehouse System"></asp:Label>
+                        </span>
+                    </div>
+
+                    <div style="width: 25%; float: right; text-align: right" id="datetimeDiv">
+                        <asp:Label ID="datetime" runat="server" CssClass="datetime"></asp:Label>
+
+                    </div>
+                    <a id="welcomename">Welcome, <% Response.Write(strName); %></a>
+
+                </div>
+
+
+                <div id="MainMenu">
+
+
+
+                    <div id="menu">
+                        <ul class="menu">
+                            <li><a href="#" class="parent"><span>Parts Warehouse</span></a>
+                                <div>
+                                    <ul>
+                                        <li id="liSystemTransaction" runat="server"><a href="#" class="parent"><span>System Transaction</span></a>
+                                            <div>
+                                                <ul>
+                                                    <%--<li id = "liLotDataScanning" runat = "server"><a href="LotDataScanning.aspx"><span>Lot Data Scanning</span></a></li>--%>
+                                                    <li id="liDNChecking" runat="server"><a href="DNReceivingExecuteScreen.aspx"><span>DN Receiving</span></a></li>
+                                                    <li id="liEmptyBox" runat="server"><a href="EmptyBox.aspx"><span>Empty Box Return</span></a></li>
+                                                    <li id="liRFIDScanningVerification" runat="server"><a href="../PLCLogin.aspx" target="_blank"><span>Parts Location Check</span></a></li>
+                                                    <li id="liRFIDLotMatching" runat="server"><a href="../RFIDLogin.aspx" target="_blank"><span>RFID-LOT Pairing</span></a></li>
+                                                    <li id="liPartsInspectionLocation" runat="server"><a href="PartsLocationInspectionCheck.aspx" target="_blank"><span>Parts Inspection Location Check</span></a></li>
+                                                    <li id="liEmptyBoxAntennaToReturnables" runat="server"><a href="EmptyBoxAntennaToReturnables.aspx"><span>Empty Box To Returnables</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li id="liMaster" runat="server"><a href="#" class="parent"><span>Master</span></a>
+                                            <div>
+                                                <ul>
+                                                    <%--<li id = "liLotDataScanning" runat = "server"><a href="LotDataScanning.aspx"><span>Lot Data Scanning</span></a></li>--%>
+                                                    <li id="liPartsLocationCheckMaster" runat="server"><a href="MasterPartsCheckLocation.aspx"><span>Parts Location Master</span></a></li>
+                                                    <li id="li6" runat="server"><a href="MasterRFIDTag.aspx"><span>RFID Tag Master</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+
+                                        <li id="li8" runat="server"><a href="#" class="parent"><span>In-House</span></a>
+                                            <div>
+                                                <ul>
+                                                    <li id="liPDMA" runat="server"><a href="PDMAMonitoring.aspx"><span>PD MA Monitoring</span></a></li>
+                                                    <li id="liInkPDMonitoring" runat="server"><a href="InkPDReceivingScreen.aspx"><span>Ink Production Monitoring</span></a></li>
+
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li><a href="#" class="parent"><span>Inquiry/Reports</span></a>
+                                            <div>
+                                                <ul>
+                                                    <li id="liDeliveryInquiryExess" runat="server"><a href="DNMonitoringWithExcess.aspx"><span>DN Receiving Monitoring (Excess)</span></a></li>
+                                                    <li id="liDeliveryInquiry" runat="server"><a href="DNReceivingScreen.aspx"><span>DN Receiving Monitoring</span></a></li>
+                                                    <%--<li id = "liOutstandingDelivery" runat = "server"><a href="#"><span>Outstanding Delivery</span></a></li>--%>
+                                                    <li id="liScannedDataInquiry" runat="server"><a href="ScannedDataInquiry.aspx"><span>Scanned Data Inquiry</span></a></li>
+                                                    <li id="liOutstandingDNInquiry" runat="server"><a href="OutstandingDNInquiry.aspx"><span>DN Inquiry</span></a></li>
+                                                    <li id="liSUPPLIER_DN_SCANNING_INQUIRY" runat="server"><a href="SUPPLIER_DN_SCANNING_INQUIRY.aspx"><span>Supplier Loading DN Inquiry</span></a></li>
+                                                    <li id="liReceivedLots" runat="server"><a href="ReceivedLots.aspx"><span>Received Lots</span></a></li>
+                                                    <li id="liRFIDTag" runat="server"><a href="RFIDTagInquiry.aspx"><span>RFID Tag Inquiry</span></a></li>
+                                                    <li id="liRFIDLotInquiry" runat="server"><a href="RFIDLotInquiry.aspx"><span>RFID-Lot Inquiry</span></a></li>
+                                                    <li id="liIncomingInspection" runat="server"><a href="IncomingInspectionInquiry.aspx"><span>Incoming Inspection</span></a></li>
+                                                    <li id="liPartsDeliveryInspection" runat="server"><a href="PartsDeliveryInspection.aspx"><span>Parts Delivery Inspection Matrix</span></a></li>
+                                                    <li id="liRFIDLotMatchInquiry" runat="server"><a href="RFIDLotMatchInquiry.aspx"><span>RFID-Lot Pairing Inquiry</span></a></li>
+                                                    <li id="liPartsLocationInquiry" runat="server"><a href="PartsLocationInquiry.aspx"><span>Parts Location Inquiry</span></a></li>
+                                                    <li id="liPartsStoringInquiry" runat="server"><a href="PartsStoringInquiry.aspx"><span>Parts Storing Logs</span></a></li>
+                                                    <li id="liEmptyBoxBoard" runat="server"><a href="EmptyBoxBoard.aspx "><span>Empty Box Board</span></a></li>
+                                                    <li id="liEmptyReturnables" runat="server"><a href="EmptyPcaseStagingAreaInquiry.aspx"><span>Empty Box Returnables History</span></a></li>
+
+
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="li7" runat="server"><a href="#" class="parent"><span>Parts Production</span></a>
+                                <div>
+                                    <ul>
+                                        <li id="liInHouse" runat="server"><a href="#" class="parent"><span>In-House</span></a>
+                                            <div>
+                                                <ul>
+                                                    <li id="liPPWMonitoring" runat="server"><a href="PPWMonitoring.aspx"><span>PPW Monitoring</span></a></li>
+                                                    <li id="lblHolmesReturn" runat="server"><a href="PartsReturnHolmes.aspx" target="_blank"><span>Holmes Parts Return</span></a></li>
+                                                    <li id="liPayout" runat="server"><a href="HTPayout.aspx" target="_blank"><span>Payout</span></a></li>
+                                                    <li id="liPPDPLC" runat="server"><a href="PartsLocationCheck_PPD.aspx" target="_blank"><span>PPD Parts Location Check</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+
+
+                                        <li id="li9" runat="server"><a href="#" class="parent"><span>Master</span></a>
+                                            <div>
+                                                <ul>
+                                                    <%--<li id = "liLotDataScanning" runat = "server"><a href="LotDataScanning.aspx"><span>Lot Data Scanning</span></a></li>--%>
+                                                    <li id="li10" runat="server"><a href="MasterPartsLocationCheck_PPD.aspx"><span>PPD PLC Master</span></a></li>
+                                                    <li id="li12" runat="server"><a href="AntennaRFIDIFRestriction.aspx"><span>RFID Antenna I/F Restriction</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li><a href="#" class="parent"><span>Inquiry/Reports</span></a>
+                                            <div>
+                                                <ul>
+                                                    <li id="liInHouseTransactionInquiry" runat="server"><a href="InHouseRFIDInquiry.aspx"><span>In-House RFID Inquiry</span></a></li>
+                                                    <li id="liHOLMESLotInquiry" runat="server"><a href="HOLMESLotInquiry.aspx"><span>PPD Receive Lot Inquiry</span></a></li>
+                                                    <li id="liHOLMESLotMovment" runat="server"><a href="HOLMESLotMovement.aspx"><span>PPD Lot Movement</span></a></li>
+                                                    <li id="liHOLMESLotUpdateHistory" runat="server"><a href="HOLMESLotUpdateHistory.aspx"><span>PPD Lot Trace Inquiry</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="liFGwh" runat="server"><a href="#" class="parent"><span>FG Warehouse</span></a>
+                                <div>
+                                    <ul>
+                                        <li id="liDisplayStatus" runat="server"><a href="#" class="parent"><span>Display Status</span></a>
+                                            <div>
+                                                <ul>
+                                                    <li id="liPalletMonitoring" runat="server"><a href="PalletMonitoring.aspx"><span>Status View</span></a></li>
+                                                    <li id="liLocationView" runat="server"><a href="LocationView.aspx"><span>Location View</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+
+                                        <li id="liAllocation" runat="server"><a href="#" class="parent"><span>Allocation</span></a>
+                                            <div>
+                                                <ul>
+                                                    <li id="liContainerAllocation" runat="server"><a href="ContainerAllocation.aspx"><span>Container Allocation</span></a></li>
+                                                    <li id="liPalletAllocation" runat="server"><a href="PalletAllocation.aspx"><span>Pallet Allocation</span></a></li>
+                                                    <li id="liODAllocation" runat="server"><a href="ODAllocation.aspx"><span>OD Allocation</span></a></li>
+                                                    <li id="liPalletLoading" runat="server"><a href="PalletLoading.aspx"><span>Pallet Loading</span></a></li>
+                                                    <li id="liExitFactory" runat="server"><a href="ExitFactory.aspx"><span>Exit Factory</span></a></li>
+                                                    <li id="liCartonInformation" runat="server"><a href="CartonInformation.aspx"><span>Carton Information</span></a></li>
+                                                    <li id="liVanningPollAllocation" runat="server"><a href="VanningPoolPalletAllocation.aspx"><span>Vanning Pool Allocation</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li id="liMasterMaintenance" runat="server"><a href="#" class="parent"><span>Master Maintenance</span></a>
+                                            <div>
+                                                <ul>
+                                                    <li id="liLocationMaster" runat="server"><a href="LocationMaster.aspx"><span>Location Master</span></a></li>
+                                                    <li id="liItemLimitControl" runat="server"><a href="MasterItemControlLimit.aspx"><span>Item Limit Control</span></a></li>
+                                                    <li id="liWeeklyShipmentSchedule" runat="server"><a href="WeeklyShipmentSchedule.aspx"><span>Shipment Schedule</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li id="li3" runat="server"><a href="#" class="parent"><span>Inquiry/Reports</span></a>
+                                            <div>
+                                                <ul>
+                                                    <li id="li4" runat="server"><a href="PalletShipmentReport.aspx"><span>Pallet Shipment</span></a></li>
+                                                    <li id="li5" runat="server"><a href="ContainerLabelPrinting.aspx"><span>Container Label Printing</span></a></li>
+                                                    <li id="liCompletionRate" runat="server"><a href="ReportCompletionRate.aspx"><span>Completion Rate</span></a></li>
+                                                    <li id="liShipmentStatus" runat="server"><a href="ReportShipmentStatus.aspx"><span>Shipment Status</span></a></li>
+                                                    <li id="liWeeklyShipmentScheduleHistory" runat="server"><a href="ReportsWeeklyShipmentScheduleHistory.aspx"><span>WSS History</span></a></li>
+                                                    <li id="liWSSForwarder" runat="server"><a href="ReportsForwarderWSS.aspx"><span>Forwarder WSS</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li id="liPartsSimulationInventory" runat="server"><a href="#" class="parent"><span>PSI Function</span></a>
+                                <div>
+                                    <ul>
+                                        <li id="liMasterList" runat="server"><a href="#"><span>Master List</span></a>
+                                            <div>
+                                                <ul>
+                                                    <li id="li1" runat="server"><a href="PSI_MASTER_PARTS.aspx"><span>Parts Master</span></a></li>
+                                                    <li id="liMasterVendorsCategory" runat="server"><a href="PSI_MASTER_VENDORS_CATEGORY.aspx"><span>Vendors Category Master</span></a></li>
+                                                    <li id="li" runat="server"><a href="AssemblyPartsUploading.aspx"><span>Assembly Parts Upload</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li id="liShortageList" runat="server"><a href="PSI_SHORTAGELIST_BY_PLANT.aspx"><span>Shortage List</span></a></li>
+                                        <li id="liPartsSimulation" runat="server"><a href="PSI_PARTS_SIMULATION_BY_PLANT.aspx"><span>Parts Simulation</span></a></li>
+                                        <li id="liPartsSimulationAssemblyParts" runat="server"><a href="PSIPartsSimulationAssemblyParts.aspx"><span>Parts Simulation Assembly Parts</span></a></li>
+                                        <li id="liDOS" runat="server"><a href="#" class="parent"><span>DOS Report</span></a>
+                                            <div>
+                                                <ul>
+                                                    <li id="liDOSVendorReply" runat="server"><a href="PSI_DOS_VENDOR_REPLY_BY_PLANT.aspx"><span>Vendor Report</span></a></li>
+                                                    <li id="liDOSVendorReplyAssemblyParts" runat="server"><a href="PSIDosVendorReplyAssemblyParts.aspx"><span>Vendor Report Assembly Parts</span></a></li>
+                                                    <li id="liDOSMonthly" runat="server"><a href="PSIDOSMonthly.aspx"><span>Monthly Report</span></a></li>
+                                                    <li id="liDOSBuyerConfirm" runat="server"><a href="PSI_DOS_BUYER_CONFIRM_BY_PLANT.aspx"><span>Buyer Confirm</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li id="li2" runat="server"><a href="PSI_SUPPLER_STOCKS_UPLOADING.aspx"><span>Supplier Stocks Manual Upload</span></a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="liLotLabel" runat="server"><a href="#" class="parent"><span>Lot Label Printing</span></a>
+                                <div>
+                                    <ul>
+                                        <li id="liBarcodC" runat="server"><a href="AutoLine_Barcode_Generate.aspx"><span>Auto-line Barcode Label Creation</span></a></li>
+                                        <li id="liBarcode" runat="server"><a href="AutoLine_Barcode.aspx"><span>Auto-line Barcode Label Reprint</span></a></li>
+                                        <li id="liStation" runat="server"><a href="AutoLine_Barcode_Station.aspx"><span>Station Registration</span></a></li>
+                                        <li id="liInquiry" runat="server"><a href="AutoLine_Barcode_Inquiry.aspx"><span>Barcode Lot Label Inquiry</span></a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="liASP" runat="server"><a href="#" class="parent"><span>VP ASP Traceability</span></a>
+
+                                <div>
+                                    <ul>
+                                        <li id="liASPMaintenance" runat="server"><a href="#" class="parent"><span>Maintenance</span></a>
+                                            <div>
+                                                <ul>
+                                                    <li id="li13" runat="server"><a href="VPASP_SERIAL_SCAN_MASTER.aspx"><span>Serial Scanning Master</span></a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li id="li11" runat="server"><a href="#" class="parent"><span>VP ASP Reports</span></a>
+                                            <div>
+                                                <ul>
+                                                    <li id="li14" runat="server"><a href="ASPEPPI.aspx"><span>VP ASP Status Reports</span></a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="liUserMaintenance" runat="server"><a href="#" class="parent"><span>User Maintenance</span></a>
+                                <div>
+                                    <ul>
+                                        <li id="liByPass" runat="server"><a href="BypassMaintenance.aspx"><span>Bypass Approver</span></a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li class="last"><a href="../Login.aspx"><span>Log Out</span></a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <div id="content">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+
+
+                <div id="footer" align="center">
+                    <asp:Label ID="lblFooter" runat="server"></asp:Label>
+                </div>
+
+            </div>
+            <div id="dvHidden" runat="server" style="display: none">
+
+                <asp:TextBox ID="txtclientIp" runat="server"></asp:TextBox>
+
+            </div>
+
+
+
+        </div>
+        <cc1:msgBox ID="MsgBox1" runat="server"></cc1:msgBox>
+    </form>
+    <script type="text/javascript">
+        var GlobalURL = '/EWHS/';
+        var clientIP = document.getElementById("ctl00_txtclientIp").value;
+        if (clientIP == "::1") {
+            GlobalURL = '/';
+        }
+    </script>
+    <script src="../js/bootstrap/bootstrap-transition.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-alert.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-modal.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-dropdown.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-scrollspy.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-tab.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-tooltip.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-popover.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-button.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-collapse.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-carousel.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-typeahead.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-affix.js" type="text/javascript"></script>
+    <script src="../js/bootstrap/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="../js/jquery/jquery-tablesorter.js" type="text/javascript"></script>
+    <script src="../js/jquery/jquery-chosen.js" type="text/javascript"></script>
+    <script src="../js/jquery/virtual-tour.js" type="text/javascript"></script>
+
+</body>
+</html>

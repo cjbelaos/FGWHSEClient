@@ -1,0 +1,147 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="HTMasterPalletMonitoring.Master.cs" Inherits="FGWHSEClient.Form.HTMasterPalletMonitoring" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title>WHSE System</title>
+    <link rel="Shortcut Icon" href="../Image/iconS.png" type="image/x-icon" />
+    
+    <script type="text/javascript">
+    
+        function document.onkeydown() {
+				
+				if (window.event) 
+				{
+                var keycodes = window.event.keyCode;
+				    shortkeys(keycodes);
+				}
+
+			}
+			
+		function shortkeys(keycodes)
+		{   
+		    if(keycodes == 119)
+			{
+				document.all("ctl00_btnLogout").click();
+			}
+			else if(keycodes == 118)
+			{
+				document.all("ctl00_btnBack").click();
+			}
+		}
+
+
+    </script>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    <link type="text/css" rel="Stylesheet" href="../App_Themes/Stylesheet/Main.css"/>  
+    
+     
+
+    
+    </asp:ContentPlaceHolder>
+    
+</head>
+<body background="../Image/bg.png" >
+    <form id="form1" runat="server" style="width:480px" >
+    
+    <ajaxToolkit:ToolkitScriptManager runat="Server" EnablePartialRendering="true" ID="ScriptManager1" />
+    
+    
+    <div>
+        
+        
+         <div id="main" align="center" style="width:480px"  >
+        
+         <div id="banner" align="left" style="width:480px" >
+            <div style="width: 75%; float: left; width:480px" >
+                <img src="../Image/logo_medium_strapline.png" alt="EPSON" class="systemLogo" />
+                <span>
+                    <img id="Img1" src="~/Image/icon.PNG" runat="server" class="systemLogo" />
+                    &nbsp;
+                    <asp:Label ID="lbl_systemName" runat="server" CssClass="systemName" Font-Size="Large" Text="Warehouse System"></asp:Label>
+                </span>
+                
+            </div>
+            
+            <%-- <div style="width: 25%; float:right; text-align:right" id="datetimeDiv">
+                    <asp:Label ID="datetime" runat="server" CssClass="datetime"></asp:Label>
+                   
+            </div>
+             <a id="welcomename">Welcome, <% Response.Write(strName); %></a>--%>
+                
+        </div>
+        
+        
+         <div id="MainMenuHT" style="width:480px" >
+           <table width = "100%">
+                <tr>
+                    <td style ="width:30%"><div id="dvBack" runat ="server"><asp:Button ID="btnBack" runat="server" Text="Back To Main Menu" BorderStyle="None" BackColor="Gainsboro" Font-Underline="True" onclick="btnBack_Click" ForeColor="Blue"  /></div></td>
+                    <td style ="text-align:right">
+                        <table>
+                            <tr>
+                                <td><img src="../Image/Men-icon.png" /></td>
+                                <td>
+                                    <asp:Label ID="lblUserName" runat="server" Text="" Font-Size="Small"></asp:Label>
+                                 </td>
+                                 <td>&nbsp;|</td>
+                                 <td><asp:Button ID="btnLogout" runat="server" Text="Logout" BorderStyle="None" BackColor="Gainsboro" Font-Underline="True" ForeColor="Blue" onclick="btnLogout_Click"  /></td>
+                            </tr>
+                        </table>
+                        
+                    </td>
+                </tr>
+                
+           </table>
+           
+            <%--<asp:Panel ID="Panel1" runat="server" Height="46px" Width="100%">
+                <ul id="HTsddm" style="width:480px; height: 44px;" >
+
+                   
+                      
+                     <li><a href="HTContainerAllocation.aspx">Container Allocation</a></li>
+                    
+                     <li><a href="HTPalletAllocation.aspx">Pallet Allocation</a></li>
+                     
+                     <li><a href="HTODAllocation.aspx">OD Allocation</a></li>
+                     
+                     <li><a href="HTPalletLoading.aspx">Pallet Loading</a></li>
+                     
+                     <li><a href="HTExitFactory.aspx">Exit Factory</a></li>
+                     
+                     <li><a href="HTCartonInformation.aspx">Carton Information</a></li>
+                     
+                     <li><a href="../HTLogin.aspx">Logout</a></li>
+                 
+                     <li style="font-size:11px; padding-top:5px; padding-left:7px; color:Red"><% Response.Write(strName); %></li>
+                   
+                </ul>
+                
+                <div style="clear:both"></div>
+                
+                </asp:Panel>--%>
+    
+        </div>
+        
+        
+        
+        <div id="content" style="width:480px" > 
+            <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+            </asp:contentplaceholder>
+        </div>
+        
+            
+        <div id="footer" align="center" style="width:480px" >
+            <asp:Label ID="lblFooter" runat="server"></asp:Label>
+        </div>
+        
+        </div>
+        
+        
+      
+        
+    </div>
+    <cc1:msgBox id="MsgBox1" runat="server"></cc1:msgBox>
+    </form>
+</body>
+</html>

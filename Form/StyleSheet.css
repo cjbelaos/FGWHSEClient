@@ -1,0 +1,840 @@
+﻿/*
+--- Login Page
+*/
+
+.lblSystemNameLogin
+{
+    font-family: Calibri;
+	font-size: 16;
+	font-weight: bold;
+	color: #363A90;
+	text-align:right;
+}
+
+.btnLoginGuest
+{
+	text-align:center;
+}
+
+/*
+--- Master Page
+*/
+body
+{
+    margin: 0 0 0 0;
+    /*background-image:url(../Images/body_bg.gif);*/
+    /*background-repeat:repeat; */
+    background-color:#fff;
+}
+
+
+#content
+{
+    width : 1258px;
+    background-color:White;
+  
+}
+
+#banner
+{
+    width : 1258px;
+    height : 20px;
+    /*background-color: #fff;*/
+    border-style: none;
+}
+
+#banner img
+{
+    border-style: none;
+
+}
+
+#logo
+{
+    vertical-align: 80%;
+}
+
+#welcome
+{
+	font-family: Calibri;
+    text-align:right;
+    color: #0a5b93;
+}
+
+#welcomename
+{
+     color: #0a5b93;
+     /*-- #FFC800 --*/
+}
+
+#menutitle
+{
+    padding-left: 10px;
+}
+
+.lblSystemName
+{
+    font-family: Calibri;
+	font-size:50px;
+	text-decoration: none ;
+	color: Navy;
+	height: 80px;
+	vertical-align: 40%;
+}
+
+
+
+.lblSystemVersion
+{
+    font-family: Calibri;
+	font-size:20px;
+	text-decoration: none;
+	color:Navy;
+	height: 80px;
+  	vertical-align: 100%;
+}
+
+.lblName
+{
+    font-family: Calibri;
+	font-size: 10;
+	font-weight: bold;
+	color: #363A90;
+	text-align:right;
+	vertical-align: 20%;
+}
+
+#content
+{
+    font-family: Calibri;
+	font-size: 30;
+	color: #363A90;
+	text-align:left;
+	padding-top: 20px;
+}
+
+.about
+{
+	font-family: Calibri;
+	color:White;
+	font-size:small;
+	font-style:normal;
+	font-weight:bold;
+	text-align:center;
+}
+
+#footer
+{
+	font-family: Calibri;
+	color:Gray;
+	font-size:small;
+	font-style:normal;
+	font-weight:bold;
+	text-align:center;
+	padding-top: 15px;
+	padding-bottom: 5px;
+}
+
+/*
+-----START - Dropdown Main Menu
+*/
+.Submenu
+{
+	text-align:left;
+	font-family:Lucida Console;
+	font-size: 12px;
+	font-style:normal;
+	
+}
+
+ul.topnav {
+	list-style: none;
+	padding: 0 10px;
+	margin: 0;
+	float: left;
+	width: 1200px;
+	
+	background: #0a5b93;
+	font-size:12px;
+	background: url(../Images/topnav_bg.gif) repeat-x;
+}
+
+ul.topnav li {
+	float: left;
+	left:130px;
+	top:10px;
+	margin: 0;
+	padding: 0 15px 0 0;
+	position: relative; /*--Declare X and Y axis base for sub navigation--*/
+}
+ul.topnav li a{
+	padding: 10px 5px;
+	color: Black;
+	display: block;
+	font-family: Lucida Console;
+	font-size:12px;
+	text-decoration: none;
+	float: left;
+}
+ul.topnav li a:hover{
+	background: url(../Images/hover_alpha.png) no-repeat center top;
+	
+	
+	
+}
+ul.topnav li span { /*--Drop down trigger styles--*/
+	width: 17px;
+	height: 35px;
+	float: left;
+	background: url(../Images/subnav_btn.gif) no-repeat center top;
+}
+ul.topnav li span.subhover {background-position: center bottom; cursor: pointer;} /*--Hover effect for trigger--*/
+ul.topnav li ul.subnav {
+	list-style: none;
+	position: absolute; /*--Important - Keeps subnav from affecting main navigation flow--*/
+	left: 0; top: 35px;
+	background: #333;
+	margin: 0; 
+	padding: 0;
+	display: none;
+	float: left;
+	width: 170px;
+	border: 1px solid #111;
+}
+ul.topnav li ul.subnav li{
+	margin: 0; padding: 0;
+	border-top: 1px solid #252525; /*--Create bevel effect--*/
+	border-bottom: 1px solid #444; /*--Create bevel effect--*/
+	clear: both;
+	width: 170px;
+}
+html ul.topnav li ul.subnav li a {
+	float: left;
+	width: 145px;
+	background: #333 url(../Images/dropdown_linkbg.gif) no-repeat 10px center;
+	padding-left: 20px;
+	font-family: Lucida Console;
+	font-size:10px;
+}
+html ul.topnav li ul.subnav li a:hover { /*--Hover effect for subnav links--*/
+	background: #222 url(../Images/dropdown_linkbg.gif) no-repeat 10px center;
+}
+
+.subnav li a
+{
+	
+text-align:left;
+}
+/*
+-----END - Dropdown Main Menu
+*/
+
+
+
+/*
+-----AJAX Calendar Sylesheet
+*/
+
+.ajax__calendar_container 
+{
+    border:2px solid #646464;
+    background-color: #FFFFFF;
+    color: #000000;
+}
+.ajax__calendar_header
+{
+	background-color: #FFCC00;
+    color: #000000;
+}
+
+/*
+----- AJAX Watermark
+*/
+
+.watermarked {
+	/*height:20px;
+	width:150px;
+    border:1px solid #BEBEBE;
+	padding:2px 0 0 2px;*/
+	background-color:#F0F8FF;
+	color:gray;
+	font-size:10px;
+}	
+
+
+/*
+--- GridView
+*/
+.GridViewHeader
+{
+    font-family: Calibri;
+	font-size:13px;
+	font-style:normal;
+	font-weight:bold;
+}
+
+.GridView
+{
+    font-family: Calibri;
+	font-size:12px;
+	font-style:normal;
+}
+
+.GridViewAlertHistory
+{
+    font-family: Calibri;
+	font-size:11px;
+	font-style:normal;
+}
+
+.EditTextBox
+{
+    font-family: Calibri;
+	font-size:11px;
+	font-style:normal;
+}
+
+/*
+--- Tabs
+*/
+.CustomTabStyle .ajax__tab_header
+{
+	font-family:Calibri;
+	font-size:14px;
+	background-image:url(../Images/subnav_btn.gif) no-repeat center top;
+	
+	}
+
+.CustomTabStyle .ajax__tab_outer
+{
+	background-color:black;
+
+	}
+	
+.CustomTabStyle .ajax__tab_inner
+{
+	background-color:Gray;
+
+	}
+	
+.CustomTabStyle	.ajax__tab_tab
+{
+	background-color:#2476ca;
+	padding:5px;
+	color:white;
+	font-family:Calibri;
+	font-weight:bold;
+	border-color:#16499a;
+	border-style:solid;
+	border-width:1px;
+	height:20px;
+	width:110px;
+	}
+
+.CustomTabStyle .ajax__tab_body
+{
+	background-color:#d9e9f9;
+	border-color:#16499a;
+	border-style:solid;
+	border-width:1px;
+	font-family:Calibri;
+	}
+	
+.CustomTabStyle .ajax__tab_hover
+{
+	background-color:#3189f5;	
+	
+	}
+	
+	
+.CustomTabStyle .ajax__tab_active
+{
+	background-color:#16499a;
+	
+	}
+	
+CustomTabStyle .Clicked
+{
+ float: left;
+    display: block;
+    background: url("../Images/SelectedButton.png") no-repeat right top;
+    padding: 4px 18px 4px 18px;
+    color: Black;
+    font-weight: bold;
+    color: White;
+
+	
+	}
+
+/*
+-----AJAX Calendar Sylesheet
+*/
+
+.AjaxCalendar .ajax__calendar_container 
+{
+    border:2px solid #646464;
+    background-color: #bbbbbb;
+    color: #000000;
+}
+
+.AjaxCalendar .ajax__calendar_header
+{
+	/*--IJP--*/
+	background-color: #cfecff;
+	
+	/*--VP--
+	background-color: #d0ffcf;
+		*/
+	
+    color: #000000;
+}
+
+.AjaxCalendar .ajax__calendar_container   {
+background-color: #FFFFFF;
+border:solid 3px #e2e5e7;
+}
+
+.AjaxCalendar .ajax__calendar_header  {
+	/*--IJP--*/
+	background-color: #cfecff;
+	/*--VP--
+	background-color: #d0ffcf;
+    */
+    margin-bottom: 4px;
+}
+
+.AjaxCalendar .ajax__calendar_title,
+.AjaxCalendar .ajax__calendar_next,
+.AjaxCalendar .ajax__calendar_prev    
+{
+    color: #000000;
+    padding-top: 3px;
+}
+
+
+.AjaxCalendar .ajax__calendar_body    {
+background-color: #ffffff;
+border: solid 1px #e2e5e7;
+}
+
+.AjaxCalendar .ajax__calendar_dayname {
+text-align:center;
+font-weight:bold;
+margin-bottom: 4px;
+margin-top: 2px;
+/*--GRAY--
+color: #7b7b7b;
+*/
+
+/*--IJP--*/
+color: #0086db;
+
+/*--VP--
+color: #00b75f;
+*/
+}
+
+.AjaxCalendar .ajax__calendar_hover .ajax__calendar_day,
+.AjaxCalendar .ajax__calendar_hover .ajax__calendar_month,
+.AjaxCalendar .ajax__calendar_hover .ajax__calendar_year,
+.AjaxCalendar .ajax__calendar_active  
+{
+    font-weight: bold;
+    color:#7b7b7b;
+	/*--IJP--*/
+	background-color: #cfecff;
+	/*--VP--
+	background-color: #d0ffcf;
+    */
+    
+}
+
+.AjaxCalendar .ajax__calendar_today
+{
+    font-weight:bold;
+}
+
+.AjaxCalendar .ajax__calendar_other
+{
+    color:#aaaaaa;    
+}
+
+.AjaxCalendar .ajax__calendar_hover .ajax__calendar_today,
+.AjaxCalendar .ajax__calendar_hover .ajax__calendar_title {
+color: #7b7b7b;
+}
+
+/*-- MENU --*/
+ol#toc {
+	height: 2em;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	margin-left: 20px;
+}
+
+ol#toc a {
+	color: gray;
+	float: left;
+	outline: none;
+	padding-right: 10px;
+	text-decoration: none;
+}
+
+ol#toc li.current 
+{
+	color: #fff;
+	background-color: #0a5b93;
+}
+
+ol#toc li.current:hover 
+{
+	color: #fff;
+	background-color: #0a5b93;
+}
+
+ol#toc li.current a {
+	background-position: 100% -60px;
+	color: #fff;
+	font-weight: bold;
+}
+
+ol#toc li 
+{
+	display: inline;
+	background: #f4f4f4;
+	border-bottom-width: 0;
+	margin: 0 0.2em 0 0;
+	float: left;
+	padding: 5px 10px 5px 10px;
+	color: #000;
+	/*background: #ddd;
+	float: left;
+	border: 1px solid;
+	color: #000;
+	margin: 0 1px 0 0;
+	padding-left: 10px;
+	width:120px;
+	height:30px;
+	vertical-align:bottom;*/
+}
+
+ol#toc li:hover
+{
+	background: #cfecff;
+	color: #0a5b93;
+	}
+	
+.iStyle
+{
+	border:0px;
+	}
+
+
+
+
+
+
+.watermarked
+
+{
+
+  background-color:gray;
+
+  filter:alpha(opacity=60);
+
+  opacity:0.60;
+
+}
+ 
+
+.pnlApproval
+
+{
+
+    font-family:Calibri;
+
+    color: Black;
+
+    font-size:16px;
+
+   
+
+}
+
+ 
+
+.pnlShowApproval
+
+{
+
+      background-color:white;
+
+   
+
+    width:550px;
+
+    height:210px;
+
+      color: #363A90;
+      border-style:solid;
+	border-width:thin;
+	border-color:#0a5b93;
+
+    
+
+}
+
+ 
+
+.pnlRequestChange
+
+{
+
+    font-family:Calibri;
+
+    color: Black;
+
+    font-size:16px;
+
+   
+
+}
+
+.pnlSendResponse
+
+{
+
+    font-family:Calibri;
+
+    color: Black;
+
+    font-size:16px;
+
+   
+
+}
+
+ 
+
+.pnlShowRequestChange
+
+{
+
+      background-color:white;
+
+   
+
+    width:550px;
+
+    height:250px;
+
+      color: #363A90;
+
+    
+
+}
+
+.pnlShowSendResponse
+{
+	background-color:white;
+	width:550px;
+	height:250px;
+	color: #363A90;
+	border-style:solid;
+	border-width:thin;
+	border-color:#0a5b93;
+}
+
+ 
+
+.pnlReassignTask
+
+{
+
+    font-family:Calibri;
+
+    color: Black;
+
+    font-size:16px;
+
+   
+
+}
+
+ 
+
+.pnlShowReassignTask
+
+{
+
+      background-color:white;
+
+   
+
+    width:550px;
+
+    height:250px;
+
+      color: #363A90;
+      border-style:solid;
+	border-width:thin;
+	border-color:#0a5b93;
+
+    
+
+}
+
+.pnlHeader
+{
+    border-style:solid;
+    border-width:thin;
+    border-color:#0a5b93;
+    background-color:#cfecff;
+    color: #363A90;
+    width:550px;
+    height:20px;
+    text-align:left;
+}
+
+
+
+
+
+/* REX */
+.pnlHeaderApproval
+{
+    border-style:solid;
+    border-width:thin;
+    border-color:#b6b7ba;
+    background-color:#b6b7ba;
+    color: #000000;
+    width:1200px;
+    height:20px;
+    text-align:left;
+    font-family:Calibri; 
+    font-style:italic;  
+    font-size:16px
+}
+
+
+.pnlShowApproval
+{
+    background-color:white;
+    width:1212px;
+    height:390px;
+    color: #363A90;
+    border-style:solid;
+	border-width:thin;
+	border-color:#b6b7ba;
+}
+
+.approverheaderstyle
+{
+	font-size:14px;
+	font-weight:bold;
+	color:Black;
+}
+
+.widthmargin
+{
+	width:30px;
+	
+}
+
+.widthdescription
+{
+	width:150px;
+	color:Black;
+	text-align:center;
+}
+
+.widthapprover
+{
+	width:430px;
+}
+
+.remarks {
+     white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+     white-space: -pre-wrap;      /* Opera 4-6 */
+     white-space: -o-pre-wrap;    /* Opera 7 */
+     white-space: pre-wrap;       /* css-3 */
+     word-wrap: break-word;       /* Internet Explorer 5.5+ */
+     word-break: break-all;
+     white-space: normal;
+}
+
+.watermarked
+{
+  background-color:gray;
+  filter:alpha(opacity=90);
+  opacity:0.90;
+}
+
+
+.modalstyle
+{
+	width:550px;
+	background-color:#EAE9EB;
+	height:250px;
+	background-color: #FFFFFF;
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+
+}
+.modalstyleCancel
+{
+	width:300px;
+	background-color:#EAE9EB;
+	height:160px;
+	background-color: #FFFFFF;
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+
+}
+
+
+.dialogbox
+{
+	font-size:16px; 
+	font-family: Calibri; 
+	margin-left:10px;
+	color:Black;
+	background-color:#ccc4c1;
+	width:550px;
+}
+
+.dialogcontent
+{
+	font-size:14px;
+	font-family: Calibri;
+	/*font-weight:bold;
+	color: #A2CD5A;*/
+	margin-left:15px;
+}
+
+
+
+.MyTaskCount
+{
+	color:White;
+	background-color:Red;
+	float:inherit;
+	padding: 15px 5px 5px 5px;
+	margin: 0 0.2em 0 0;
+	border: 2px solid silver;
+}
+
+.MyTaskCount2
+{
+	color:White;
+	background-color:Red;
+	float:inherit;
+	padding: 15px 5px 5px 5px;
+	margin: 0 0.2em 0 0;
+	border: 2px solid silver;
+}
+
+

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsAutoLine" targetNamespace="http://tempuri.org/dsAutoLine.xsd" xmlns:mstns="http://tempuri.org/dsAutoLine.xsd" xmlns="http://tempuri.org/dsAutoLine.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsAutoLine" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsAutoLine" msprop:Generator_UserDSName="dsAutoLine">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtAutoLine" msprop:Generator_TableClassName="dtAutoLineDataTable" msprop:Generator_TableVarName="tabledtAutoLine" msprop:Generator_RowChangedName="dtAutoLineRowChanged" msprop:Generator_TablePropName="dtAutoLine" msprop:Generator_RowDeletingName="dtAutoLineRowDeleting" msprop:Generator_RowChangingName="dtAutoLineRowChanging" msprop:Generator_RowEvHandlerName="dtAutoLineRowChangeEventHandler" msprop:Generator_RowDeletedName="dtAutoLineRowDeleted" msprop:Generator_RowClassName="dtAutoLineRow" msprop:Generator_UserTableName="dtAutoLine" msprop:Generator_RowEvArgName="dtAutoLineRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="QRCODE" msprop:Generator_ColumnVarNameInTable="columnQRCODE" msprop:Generator_ColumnPropNameInRow="QRCODE" msprop:Generator_ColumnPropNameInTable="QRCODEColumn" msprop:Generator_UserColumnName="QRCODE" type="xs:string" minOccurs="0" />
+              <xs:element name="ITEMCODE" msprop:Generator_ColumnVarNameInTable="columnITEMCODE" msprop:Generator_ColumnPropNameInRow="ITEMCODE" msprop:Generator_ColumnPropNameInTable="ITEMCODEColumn" msprop:Generator_UserColumnName="ITEMCODE" type="xs:string" minOccurs="0" />
+              <xs:element name="LOTNO" msprop:Generator_ColumnVarNameInTable="columnLOTNO" msprop:Generator_ColumnPropNameInRow="LOTNO" msprop:Generator_ColumnPropNameInTable="LOTNOColumn" msprop:Generator_UserColumnName="LOTNO" type="xs:string" minOccurs="0" />
+              <xs:element name="REFNO" msprop:Generator_ColumnVarNameInTable="columnREFNO" msprop:Generator_ColumnPropNameInRow="REFNO" msprop:Generator_ColumnPropNameInTable="REFNOColumn" msprop:Generator_UserColumnName="REFNO" type="xs:string" minOccurs="0" />
+              <xs:element name="QTY" msprop:Generator_ColumnVarNameInTable="columnQTY" msprop:Generator_ColumnPropNameInRow="QTY" msprop:Generator_ColumnPropNameInTable="QTYColumn" msprop:Generator_UserColumnName="QTY" type="xs:string" minOccurs="0" />
+              <xs:element name="REMARKS" msprop:Generator_ColumnVarNameInTable="columnREMARKS" msprop:Generator_ColumnPropNameInRow="REMARKS" msprop:Generator_ColumnPropNameInTable="REMARKSColumn" msprop:Generator_UserColumnName="REMARKS" type="xs:string" minOccurs="0" />
+              <xs:element name="BARQRCODE" msprop:Generator_ColumnVarNameInTable="columnBARQRCODE" msprop:Generator_ColumnPropNameInRow="BARQRCODE" msprop:Generator_ColumnPropNameInTable="BARQRCODEColumn" msprop:Generator_UserColumnName="BARQRCODE" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="BARITEMCODE" msprop:Generator_ColumnVarNameInTable="columnBARITEMCODE" msprop:Generator_ColumnPropNameInRow="BARITEMCODE" msprop:Generator_ColumnPropNameInTable="BARITEMCODEColumn" msprop:Generator_UserColumnName="BARITEMCODE" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="BARLOTNO" msprop:Generator_ColumnVarNameInTable="columnBARLOTNO" msprop:Generator_ColumnPropNameInRow="BARLOTNO" msprop:Generator_ColumnPropNameInTable="BARLOTNOColumn" msprop:Generator_UserColumnName="BARLOTNO" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="BARREFNO" msprop:Generator_ColumnVarNameInTable="columnBARREFNO" msprop:Generator_ColumnPropNameInRow="BARREFNO" msprop:Generator_ColumnPropNameInTable="BARREFNOColumn" msprop:Generator_UserColumnName="BARREFNO" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="BARQTY" msprop:Generator_ColumnVarNameInTable="columnBARQTY" msprop:Generator_ColumnPropNameInRow="BARQTY" msprop:Generator_ColumnPropNameInTable="BARQTYColumn" msprop:Generator_UserColumnName="BARQTY" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="BARREMARKS" msprop:Generator_ColumnVarNameInTable="columnBARREMARKS" msprop:Generator_ColumnPropNameInRow="BARREMARKS" msprop:Generator_ColumnPropNameInTable="BARREMARKSColumn" msprop:Generator_UserColumnName="BARREMARKS" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ITEMDESC" msprop:Generator_ColumnVarNameInTable="columnITEMDESC" msprop:Generator_ColumnPropNameInRow="ITEMDESC" msprop:Generator_ColumnPropNameInTable="ITEMDESCColumn" msprop:Generator_UserColumnName="ITEMDESC" type="xs:string" minOccurs="0" />
+              <xs:element name="BR" msprop:Generator_ColumnVarNameInTable="columnBR" msprop:Generator_ColumnPropNameInRow="BR" msprop:Generator_ColumnPropNameInTable="BRColumn" msprop:Generator_UserColumnName="BR" type="xs:int" minOccurs="0" />
+              <xs:element name="BG" msprop:Generator_ColumnVarNameInTable="columnBG" msprop:Generator_ColumnPropNameInRow="BG" msprop:Generator_ColumnPropNameInTable="BGColumn" msprop:Generator_UserColumnName="BG" type="xs:int" minOccurs="0" />
+              <xs:element name="BB" msprop:Generator_ColumnVarNameInTable="columnBB" msprop:Generator_ColumnPropNameInRow="BB" msprop:Generator_ColumnPropNameInTable="BBColumn" msprop:Generator_UserColumnName="BB" type="xs:int" minOccurs="0" />
+              <xs:element name="FR" msprop:Generator_ColumnVarNameInTable="columnFR" msprop:Generator_ColumnPropNameInRow="FR" msprop:Generator_ColumnPropNameInTable="FRColumn" msprop:Generator_UserColumnName="FR" type="xs:int" minOccurs="0" />
+              <xs:element name="FG" msprop:Generator_ColumnVarNameInTable="columnFG" msprop:Generator_ColumnPropNameInRow="FG" msprop:Generator_ColumnPropNameInTable="FGColumn" msprop:Generator_UserColumnName="FG" type="xs:int" minOccurs="0" />
+              <xs:element name="FB" msprop:Generator_ColumnVarNameInTable="columnFB" msprop:Generator_ColumnPropNameInRow="FB" msprop:Generator_ColumnPropNameInTable="FBColumn" msprop:Generator_UserColumnName="FB" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
