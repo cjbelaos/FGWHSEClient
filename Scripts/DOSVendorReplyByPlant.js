@@ -290,7 +290,9 @@ function DrawTable(data, callback) {
                 if (columns[j] == 'PROBLEMCATEGORY') {
                     colType[j] = {
                         type: 'dropdown',
-                        source: arrProblemCategory
+                        source: arrProblemCategory,
+                        allowInvalid: false,
+                        wordWrap: false
                     };
                 }
                 if (j >= 7 && j <= 14) {
@@ -319,7 +321,17 @@ function DrawTable(data, callback) {
                         renderer: shortageSupplierRenderer
                     };
                 }
-                if (j > 18) {
+
+                if (j == 15) {
+                    colType[j] = {
+                        type: 'numeric',
+                        mask: '#,###.00',
+                        decimal: '.',
+                        readOnly: true,
+                        renderer: shortageOverallRenderer
+                    };
+                }
+                if (j > (columns.length - 198)) {
                     colType[j] = {
                         type: 'numeric', numericFormat: {
                             pattern: '0,00',
@@ -400,10 +412,20 @@ function AfterChange(data, hook) {
         if (MyTable !== null) {
             var headers = MyTable.getColHeader();
             var PCIndex = headers.indexOf('PROBLEMCATEGORY');
+            var RIndex = headers.indexOf('REASON');
+            var CMIndex = headers.indexOf('COUNTERMEASURE');
             if (col == PCIndex) {
                 var ProblemCategory = MyTable.getDataAtCell(row, PCIndex);
                 newVal = GetPIC(ProblemCategory);
                 MyTable.setDataAtCell(row, col + 2, newVal);
+            }
+            if (col == RIndex) {
+                var newVal = MyTable.getDataAtCell(row, RIndex).toUpperCase();
+                MyTable.setDataAtCell(row, col, newVal, nv);
+            }
+            if (col == CMIndex) {
+                var newVal = MyTable.getDataAtCell(row, CMIndex).toUpperCase();
+                MyTable.setDataAtCell(row, col, newVal, nv);
             }
         }
     }
@@ -433,6 +455,17 @@ function shortageSupplierRenderer(instance, td, row, col, prop, value, cellPrope
     Handsontable.renderers.TextRenderer.apply(this, arguments);
     if (value < instance.getDataAtCell(row, 12)) {
         instance.setCellMeta(row, 13, 'className', 'htRight htNumeric NegativeCell');
+    }
+};
+/**
+
+/**
+ * to change the OVERALLDOS to red
+ */
+function shortageOverallRenderer(instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.TextRenderer.apply(this, arguments);
+    if (value < instance.getDataAtCell(row, 14)) {
+        instance.setCellMeta(row, 15, 'className', 'htRight htNumeric NegativeCell');
     }
 };
 /**
@@ -507,7 +540,7 @@ function Export(callback) {
 
         var ctr = 0;
         for (var j in columns) {
-            var NumericColumns = ['EPPISTCK', 'EPPIDOS', 'DOSLEVEL', 'SUPPLIERSTCK', 'DOSOVERALL', 'TOTALSTCK'];
+            var NumericColumns = ['EPPISTCK', 'SUPPLIERSTCK', 'TOTALSTCK', 'DOSLEVEL', 'EPPIDOS', 'SUPPLIERDOSLEVEL', 'SUPPLIERDOS', 'OVERALLDOSLEVEL', 'DOSOVERALL'];
             var Title = columns[j].title;
             var val = data[i][columns[j].field];
             lastCell = row.getCell(parseInt(j) + 1);
@@ -519,10 +552,14 @@ function Export(callback) {
     }
 
     data.forEach((element, index) => {
-        worksheet.getCell('O' + (+index + 2)).dataValidation = {
+        worksheet.getCell('Q' + (+index + 2)).dataValidation = {
             type: 'list',
             allowBlank: true,
             formulae: ['"' + arrProblemCategory.join() + '"']
+        };
+
+        worksheet.getCell('S' + (+index + 2)).value = {
+            formula: '=IF(Q' + (+index + 2) + '="CALAMITY","PR PROC",IF(Q' + (+index + 2) + '="CAPACITY PROBLEM","PE/PR PROC/PCB",IF(Q' + (+index + 2) + '="MACHINE PROBLEM","PE/PR PROC",IF(Q' + (+index + 2) + '="MANPOWER PROBLEM","PR PROC",IF(Q' + (+index + 2) + '="MOLD PROBLEM","PE",IF(Q' + (+index + 2) + '="OTHERS", "PR PROC",IF(Q' + (+index + 2) + '="PACKAGING PROBLEM", "PR PROC",IF(Q' + (+index + 2) + '="POWER INTERRUPTION", "PR PROC",IF(Q' + (+index + 2) + '="QUALITY PROBLEM", "PE/PCB",IF(Q' + (+index + 2) + '="RAW MATERIAL SHORTAGE", "PR PROC",IF(Q' + (+index + 2) + '="SUB-ASSEMBLY CAPACITY","MIS","")))))))))))'
         };
     })
 
@@ -545,7 +582,7 @@ function Export(callback) {
     });
 
     const buffer = workbook.xlsx.writeBuffer();
-    console.log(buffer);
+    //console.log(buffer);
     //for downloading the file
     workbook.xlsx.writeBuffer().then(data => {
         const blob = new Blob([data], { type: this.blobType });
@@ -562,6 +599,9 @@ function SaveData(isUploaded) {
     var Data = MyTable.getSourceData();
     var Header = MyTable.getColHeader();
     var newData = DataMapping(Header, Data);
+
+    DTForExport = newData;
+
     var DataForSaving = [];
 
     for (var i in newData) {
@@ -579,8 +619,8 @@ function SaveData(isUploaded) {
     }
     newData = DataForSaving;
     ////for debug mode
-    console.log("Old Data", DTOrig);
-    console.log("New Data", DataForSaving);
+    //console.log("Old Data", DTOrig);
+    //console.log("New Data", DataForSaving);
     DataForSaving = CompareData(DTOrig, DataForSaving);
     if (isUploaded === true) {
         DataForSaving = DataForSaving.length == 0 ? newData : DataForSaving;
@@ -595,7 +635,6 @@ function SaveData(isUploaded) {
             dataType: 'json',
             success: function (e) {
                 DTOrig = newData;
-                console.log(DTOrig);
                 var d = e.responseJSON;
                 if (d == null || d == '') {
                     alert('Data has been saved successfully!');
@@ -762,6 +801,9 @@ $(function () {
                         var queryString = url.split("=");
                         var vendor = queryString[1];
 
+                        console.log(queryString);
+                        console.log(vendor);
+
                         $("#selectVendor").val(vendor).trigger("chosen:updated");
                         var parts = "";
                         isUploaded = false;
@@ -894,7 +936,7 @@ $(function () {
             ReadExcelFile(function (data) {
                 $('#fileUpload').val('');
                 DTForExport = data;
-                var columns = ['PLANT', 'CATEGORY', 'MODELCODE', 'MATERIALNUMBER', 'MATERIALDESCRIPTION', 'SUPPLIERID', 'SUPPLIERNAME', 'EPPISTCK', 'SUPPLIERSTCK', 'TOTALSTCK', 'DOSLEVEL', 'EPPIDOS', 'SUPPLIERDOSLEVEL', 'SUPPLIERDOS', 'DOSOVERALL', 'PROBLEMCATEGORY', 'REASON', 'PIC', 'COUNTERMEASURE'];
+                var columns = ['PLANT', 'CATEGORY', 'MODELCODE', 'MATERIALNUMBER', 'MATERIALDESCRIPTION', 'SUPPLIERID', 'SUPPLIERNAME', 'EPPISTCK', 'SUPPLIERSTCK', 'TOTALSTCK', 'DOSLEVEL', 'EPPIDOS', 'SUPPLIERDOSLEVEL', 'SUPPLIERDOS', 'OVERALLDOSLEVEL', 'DOSOVERALL', 'PROBLEMCATEGORY', 'REASON', 'PIC', 'COUNTERMEASURE'];
                 var columnNames = Object.keys(data[0]);
                 columnNames.splice(columnNames.length - 198);
                 var isSame = (columns.length === columnNames.length) && columns.every(function (element, index) {

@@ -26,7 +26,6 @@ var userVendor;
 var table_DOSVendorReply;
 var columns;
 var hasData;
-//var isUploaded = false;
 var plant;
 var part;
 var vendor;
@@ -59,7 +58,7 @@ function GetSessions(callback) {
 function CheckIfForViewing(callback) {
     $.ajax({
         type: "POST",
-        url: GlobalURL + "Form/PSIDOSVendorReplyAssemblyParts.aspx/CheckIfForViewing",
+        url: GlobalURL + "Form/PSI_DOS_VENDOR_REPLY_BY_PLANT.aspx/CheckIfForViewing",
         data: "{}",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -81,7 +80,7 @@ function CheckIfForViewing(callback) {
 function GetPlantsByUserId(callback) {
     $.ajax({
         type: "POST",
-        url: GlobalURL + "Form/PSIDOSVendorReplyAssemblyParts.aspx/GetPlantsByUserId",
+        url: GlobalURL + "Form/PSI_DOS_VENDOR_REPLY_BY_PLANT.aspx/GetPlantsByUserId",
         data: "{}",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -109,7 +108,7 @@ function GetPlantsByUserId(callback) {
 function GetVendorsByUserId(callback) {
     $.ajax({
         type: "POST",
-        url: GlobalURL + "Form/PSIDOSVendorReplyAssemblyParts.aspx/GetVendorsByUserId",
+        url: GlobalURL + "Form/PSI_DOS_VENDOR_REPLY_BY_PLANT.aspx/GetVendorsByUserId",
         data: "{}",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -137,7 +136,7 @@ function GetVendorsByUserId(callback) {
 function GetProblemCategory(callback) {
     $.ajax({
         type: "POST",
-        url: GlobalURL + "Form/PSIDOSVendorReplyAssemblyParts.aspx/GetProblemCategory",
+        url: GlobalURL + "Form/PSI_DOS_VENDOR_REPLY_BY_PLANT.aspx/GetProblemCategory",
         data: "{}",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -176,7 +175,7 @@ function GetPIC(Prob) {
 function GetPartsCodeByPlantandVendors(plant, vendors, callback) {
     $.ajax({
         type: "POST",
-        url: GlobalURL + "Form/PSIDOSVendorReplyAssemblyParts.aspx/GetPartsCodeByPlantandVendors",
+        url: GlobalURL + "Form/PSI_DOS_VENDOR_REPLY_BY_PLANT.aspx/GetPartsCodeByPlantandVendors",
         data: JSON.stringify({ strPLANT: plant, strVENDORS: vendors }),
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -201,10 +200,10 @@ function GetPartsCodeByPlantandVendors(plant, vendors, callback) {
     });
 }
 
-function GetDOSVendorReplyAssemblyPartsByPlant(plant, vendors, parts, callback) {
+function GetDOSVendorReplyByPlant(plant, vendors, parts, callback) {
     $.ajax({
         type: "POST",
-        url: GlobalURL + "Form/PSIDOSVendorReplyAssemblyParts.aspx/GetDOSVendorReplyAssemblyPartsByPlant",
+        url: GlobalURL + "Form/PSI_DOS_VENDOR_REPLY_BY_PLANT.aspx/GetDOSVendorReplyByPlant",
         data: JSON.stringify({ strPLANT: plant, strVENDORS: vendors, strPARTS: parts }),
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -274,6 +273,7 @@ function DrawTable(data, callback) {
         for (var i in DTProblemCategory) {
             arrProblemCategory.push(DTProblemCategory[i]['PROB_CAT_NAME']);
         }
+
         let d = [data.length];
         let xColWidth = [columns.length];
         let colType = [columns.length];
@@ -290,10 +290,12 @@ function DrawTable(data, callback) {
                 if (columns[j] == 'PROBLEMCATEGORY') {
                     colType[j] = {
                         type: 'dropdown',
-                        source: arrProblemCategory
+                        source: arrProblemCategory,
+                        allowInvalid: false,
+                        wordWrap: false
                     };
                 }
-                if (j >= 12 && j <= 14) {
+                if (j >= 7 && j <= 15) {
                     colType[j] = {
                         type: 'numeric', numericFormat: {
                             pattern: '0,00',
@@ -301,7 +303,34 @@ function DrawTable(data, callback) {
                         }, readOnly: true
                     };
                 }
-                if (j >= 23) {
+                if (j == 11) {
+                    colType[j] = {
+                        type: 'numeric', numericFormat: {
+                            pattern: '0,00',
+                            culture: 'en-US'
+                        }, readOnly: true,
+                        renderer: shortageEPPIRenderer
+                    };
+                }
+                if (j == 13) {
+                    colType[j] = {
+                        type: 'numeric', numericFormat: {
+                            pattern: '0,00',
+                            culture: 'en-US'
+                        }, readOnly: true,
+                        renderer: shortageSupplierRenderer
+                    };
+                }
+                if (j == 15) {
+                    colType[j] = {
+                        type: 'numeric', numericFormat: {
+                            pattern: '0,00',
+                            culture: 'en-US'
+                        }, readOnly: true,
+                        renderer: shortageOverAllRenderer
+                    };
+                }
+                if (j > (columns.length - 198)) {
                     colType[j] = {
                         type: 'numeric', numericFormat: {
                             pattern: '0,00',
@@ -312,7 +341,13 @@ function DrawTable(data, callback) {
             }
             d[i] = e;
         }
-        
+
+        if ($('#MyTable').hasClass('handsontable htColumnHeaders')) {
+            MyTable.updateSettings({
+                fixedColumnsLeft: false
+            })
+        }
+
         var config = {
             data: d,
             colHeaders: columns,
@@ -329,21 +364,18 @@ function DrawTable(data, callback) {
             dropdownMenu: true,
             filters: true,
             filteringCaseSensitive: true,
-            licenseKey: 'f8a35-a4d7b-607a2-f2225-39038'
+            licenseKey: 'f8a35-a4d7b-607a2-f2225-39038',
         };
-
         MyTable = new Handsontable(document.getElementById("MyTable"), config);
 
         MyTable.updateSettings({
             cells: function (row, col) {
                 var cellProperties = {};
-
                 if (MyTable.getDataAtCell(row, col) < 0) {
                     cellProperties.renderer = negativeValueRenderer;
                 }
-
                 return cellProperties;
-            }
+            },
         })
     }
     else {
@@ -387,12 +419,16 @@ function AfterChange(data, hook) {
                 MyTable.setDataAtCell(row, col + 2, newVal);
             }
             if (col == RIndex) {
-                var newVal = MyTable.getDataAtCell(row, RIndex).toUpperCase();
-                MyTable.setDataAtCell(row, col, newVal, nv);
+                var newVal = MyTable.getDataAtCell(row, RIndex) === null ? null : MyTable.getDataAtCell(row, RIndex).toUpperCase();
+                if (newVal !== null) {
+                    MyTable.setDataAtCell(row, col, newVal, nv);
+                }
             }
             if (col == CMIndex) {
-                var newVal = MyTable.getDataAtCell(row, CMIndex).toUpperCase();
-                MyTable.setDataAtCell(row, col, newVal, nv);
+                var newVal = MyTable.getDataAtCell(row, CMIndex) === null ? null : MyTable.getDataAtCell(row, CMIndex).toUpperCase();
+                if (newVal !== null) {
+                    MyTable.setDataAtCell(row, col, newVal, nv);
+                }
             }
         }
     }
@@ -407,13 +443,46 @@ function negativeValueRenderer(instance, td, row, col, prop, value, cellProperti
     $(td).text('(' + value.replace('-', '') + ')');
 }
 /**
+ * to change the EPPIDOS to red
+ */
+function shortageEPPIRenderer(instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.TextRenderer.apply(this, arguments);
+    var EPPIDOS = parseFloat(value);
+    var DOSLEVEL = parseFloat(instance.getDataAtCell(row, 10));
+    if (EPPIDOS < DOSLEVEL) {
+        instance.setCellMeta(row, 11, 'className', 'htRight htNumeric NegativeCell');
+    }
+};
+/**
+ * to change the SUPPLIERDOS to red
+ */
+function shortageSupplierRenderer(instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.TextRenderer.apply(this, arguments);
+    var SUPPLIERDOS = parseFloat(value);
+    var SUPPLIERDOSLEVEL = parseFloat(instance.getDataAtCell(row, 12));
+    if (SUPPLIERDOS < SUPPLIERDOSLEVEL) {
+        instance.setCellMeta(row, 13, 'className', 'htRight htNumeric NegativeCell');
+    }
+};
+/**
+ * to change the OVERALLDOS to red
+ */
+function shortageOverAllRenderer(instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.TextRenderer.apply(this, arguments);
+    var DOSOVERALL = parseFloat(value);
+    var OVERALLDOSLEVEL = parseFloat(instance.getDataAtCell(row, 14));
+    if (DOSOVERALL < OVERALLDOSLEVEL) {
+        instance.setCellMeta(row, 15, 'className', 'htRight htNumeric NegativeCell');
+    }
+};
+/**
  * creating the excel file based on data sent
  */
 function Export(callback) {
 
     var currentDate = new Date();
-    var filename = 'DosVendorReplyAssemblyParts(' + moment(currentDate).format('YYYYMMDDhhmmss') + ').xlsx';
-
+    var filename = 'DosVendorReply(' + moment(currentDate).format('YYYYMMDDhhmmss') + ').xlsx';
+    console.log(DTForExport);
     var data = DTForExport;
     var columns = [];
 
@@ -437,7 +506,7 @@ function Export(callback) {
     workbook.lastModifiedBy = 'ISD';
     workbook.created = new Date();
     workbook.company = "EPPI";
-    workbook.title = "DOS Vendor Reply Assembly Parts";
+    workbook.title = "DOS Vendor Reply";
     workbook.modified = new Date();
     workbook.lastPrinted = new Date();
     workbook.properties.date1904 = true;
@@ -449,7 +518,7 @@ function Export(callback) {
             firstSheet: 0, activeTab: 1, visibility: 'visible'
         }
     ]
-    var worksheet = workbook.addWorksheet('DOS Vendor Reply Assembly Parts');
+    var worksheet = workbook.addWorksheet('DOS Vendor Reply');
     //index for row and column of ExcelJS starts with 1
     var rowIndex = 1;
     var row = worksheet.getRow(rowIndex);
@@ -478,26 +547,27 @@ function Export(callback) {
 
         var ctr = 0;
         for (var j in columns) {
-            var NumericColumns = ['EPPISTCK', 'EPPIDOS', 'DOSLEVEL', 'SUPPLIERSTCK', 'DOSOVERALL', 'TOTALSTCK'];
+            var NumericColumns = ['EPPISTCK', 'SUPPLIERSTCK', 'TOTALSTCK', 'DOSLEVEL', 'EPPIDOS', 'SUPPLIERDOSLEVEL', 'SUPPLIERDOS', 'OVERALLDOSLEVEL', 'DOSOVERALL'];
             var Title = columns[j].title;
             var val = data[i][columns[j].field];
             lastCell = row.getCell(parseInt(j) + 1);
-            if (NumericColumns.includes(Title)) {
-                lastCell.numFmt = NumberFormatString;
+            if (NumericColumns.includes(Title) || j >= 20) {
+                val = val % 1 === 0 ? parseInt(val) : parseFloat(val);
+                //lastCell.numFmt = NumberFormatString;
             }
             lastCell.value = val;
         }
     }
 
     data.forEach((element, index) => {
-        worksheet.getCell('T' + (+index + 2)).dataValidation = {
+        worksheet.getCell('Q' + (+index + 2)).dataValidation = {
             type: 'list',
             allowBlank: true,
             formulae: ['"' + arrProblemCategory.join() + '"']
         };
 
-        worksheet.getCell('V' + (+index + 2)).value = {
-            formula: '=IF(T' + (+index + 2) + '="CALAMITY","PR PROC",IF(T' + (+index + 2) + '="CAPACITY PROBLEM","PE/PR PROC/PCB",IF(T' + (+index + 2) + '="MACHINE PROBLEM","PE/PR PROC",IF(T' + (+index + 2) + '="MANPOWER PROBLEM","PR PROC",IF(T' + (+index + 2) + '="MOLD PROBLEM","PE",IF(T' + (+index + 2) + '="OTHERS", "PR PROC",IF(T' + (+index + 2) + '="PACKAGING PROBLEM", "PR PROC",IF(T' + (+index + 2) + '="POWER INTERRUPTION", "PR PROC",IF(T' + (+index + 2) + '="QUALITY PROBLEM", "PE/PCB",IF(T' + (+index + 2) + '="RAW MATERIAL SHORTAGE", "PR PROC",IF(T' + (+index + 2) + '="SUB-ASSEMBLY CAPACITY","MIS","")))))))))))'
+        worksheet.getCell('S' + (+index + 2)).value = {
+            formula: '=IF(Q' + (+index + 2) + '="CALAMITY","PR PROC",IF(Q' + (+index + 2) + '="CAPACITY PROBLEM","PE/PR PROC/PCB",IF(Q' + (+index + 2) + '="MACHINE PROBLEM","PE/PR PROC",IF(Q' + (+index + 2) + '="MANPOWER PROBLEM","PR PROC",IF(Q' + (+index + 2) + '="MOLD PROBLEM","PE",IF(Q' + (+index + 2) + '="OTHERS", "PR PROC",IF(Q' + (+index + 2) + '="PACKAGING PROBLEM", "PR PROC",IF(Q' + (+index + 2) + '="POWER INTERRUPTION", "PR PROC",IF(Q' + (+index + 2) + '="QUALITY PROBLEM", "PE/PCB",IF(Q' + (+index + 2) + '="RAW MATERIAL SHORTAGE", "PR PROC",IF(Q' + (+index + 2) + '="SUB-ASSEMBLY CAPACITY","MIS","")))))))))))'
         };
     })
 
@@ -520,7 +590,7 @@ function Export(callback) {
     });
 
     const buffer = workbook.xlsx.writeBuffer();
-    //console.log(buffer);
+    console.log(buffer);
     //for downloading the file
     workbook.xlsx.writeBuffer().then(data => {
         const blob = new Blob([data], { type: this.blobType });
@@ -563,17 +633,15 @@ function SaveData(isUploaded) {
     if (isUploaded === true) {
         DataForSaving = DataForSaving.length == 0 ? newData : DataForSaving;
     }
-    //console.log("DataForSaving : ", DataForSaving);
     if (DataForSaving.length > 0) {
         $.ajax({
-            url: GlobalURL + "Form/PSIDOSVendorReplyAssemblyParts.aspx/SaveData",
+            url: GlobalURL + "Form/PSI_DOS_VENDOR_REPLY_BY_PLANT.aspx/SaveData",
             type: "POST",
             data: JSON.stringify({ DOS: DataForSaving }),
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
             success: function (e) {
                 DTOrig = newData;
-                //console.log(DTOrig);
                 var d = e.responseJSON;
                 if (d == null || d == '') {
                     alert('Data has been saved successfully!');
@@ -672,6 +740,14 @@ function HideButtons() {
 }
 
 $(function () {
+
+    //var meta = ["<meta http-equiv='cache-control' content='no-cache'>", "<meta http-equiv='expires' content='0'>", "<meta http-equiv='pragma' content='no-cache'>"];
+    //for (var i in meta) {
+    //    $("head").append(meta[i]);
+    //}
+
+    var url = location.search;
+
     GetSessions(function (e) {
         userid = e["UserID"];
         userName = e["UserName"];
@@ -693,6 +769,59 @@ $(function () {
             }).appendTo($('#selectPlant'));
         }
         $("#selectPlant").trigger("chosen:updated");
+        var plant = $('#selectPlant').val();
+        GetVendorsByUserId(function (d) {
+            if (d.length === 0) {
+                $("#selectVendor").attr("data-placeholder", "No Vendor Options").trigger("chosen:updated");
+                $("#selectPartsCode").attr("data-placeholder", "No PartsCode Options").trigger("chosen:updated");
+            }
+            else {
+                userVendor = d[0]['VENDORS'];
+                arrVendors = [];
+                for (var i in d) {
+                    arrVendors.push(d[i]['SupplierCode']); //insert all suppliercode into array
+                    $('<option>', {
+                        value: d[i]['SupplierCode'],
+                        text: d[i]['Supplier']
+                    }).appendTo($('#selectVendor'));
+                }
+                $("#selectVendor").attr("data-placeholder", "Select Vendor Options").trigger("chosen:updated");
+                vendors = arrVendors.join('/');
+                GetPartsCodeByPlantandVendors(plant, vendors, function (d) {
+                    if (d.length === 0) {
+                        $("#selectPartsCode").attr("data-placeholder", "No PartsCode Options").trigger("chosen:updated");
+                    }
+                    else {
+                        arrParts = [];
+                        for (var i in d) {
+                            arrParts.push(d[i]['MATERIALCODE']);
+                            $('<option>', {
+                                value: d[i]['MATERIALCODE'],
+                                text: d[i]['MATERIAL']
+                            }).appendTo($('#selectPartsCode'));
+                        }
+                        $("#selectPartsCode").attr("data-placeholder", "Select PartsCode Options").trigger("chosen:updated");
+                        parts = arrParts.join('/');
+                    }
+
+                    if (url !== "") {
+                        var queryString = url.split("=");
+                        var vendor = queryString[1];
+
+                        console.log(queryString);
+                        console.log(vendor);
+
+                        $("#selectVendor").val(vendor).trigger("chosen:updated");
+                        var parts = "";
+                        isUploaded = false;
+                        GetDOSVendorReplyByPlant(plant, vendor, parts);
+                    }
+                });
+            }
+        });
+    });
+
+    $("#selectPlant").change(function () {
         var plant = $('#selectPlant').val();
         GetVendorsByUserId(function (d) {
             if (d.length === 0) {
@@ -759,7 +888,6 @@ $(function () {
     });
 
     $('#btnFilter').click(function () {
-
         isUploaded = false;
         var plant = $('#selectPlant').val();
 
@@ -793,7 +921,7 @@ $(function () {
             parts = "";
         }
 
-        GetDOSVendorReplyAssemblyPartsByPlant(plant, vendor, parts);
+        GetDOSVendorReplyByPlant(plant, vendor, parts);
     });
 
     $('#btnSave').click(function () {
@@ -815,7 +943,7 @@ $(function () {
             ReadExcelFile(function (data) {
                 $('#fileUpload').val('');
                 DTForExport = data;
-                var columns = ['BOMLEVEL', 'FGMATERIALNUMBER', 'FGMAINVENDOR', 'PARENTMATERIALNUMBER', 'PARENTMAINVENDOR', 'PLANT', 'CATEGORY', 'MODEL', 'MATERIALNUMBER', 'MATERIALDESCRIPTION', 'SUPPLIERID', 'SUPPLIERNAME', 'EPPISTCK', 'SUPPLIERSTCK', 'TOTALSTCK', 'DOSLEVEL', 'EPPIDOS', 'SUPPLIERDOS', 'DOSOVERALL', 'PROBLEMCATEGORY', 'REASON', 'PIC', 'COUNTERMEASURE'];
+                var columns = ['PLANT', 'CATEGORY', 'MODELCODE', 'MATERIALNUMBER', 'MATERIALDESCRIPTION', 'SUPPLIERID', 'SUPPLIERNAME', 'EPPISTCK', 'SUPPLIERSTCK', 'TOTALSTCK', 'DOSLEVEL', 'EPPIDOS', 'SUPPLIERDOSLEVEL', 'SUPPLIERDOS', 'OVERALLDOSLEVEL', 'DOSOVERALL', 'PROBLEMCATEGORY', 'REASON', 'PIC', 'COUNTERMEASURE'];
                 var columnNames = Object.keys(data[0]);
                 columnNames.splice(columnNames.length - 198);
                 var isSame = (columns.length === columnNames.length) && columns.every(function (element, index) {
@@ -833,7 +961,6 @@ $(function () {
                     if (isValid === true) {
                         DrawTable(data, function (e) {
                             if (e > 0) {
-                                //isUploaded = true;
                                 ShowButtons();
                                 SaveData(true);
                             }
@@ -854,6 +981,10 @@ $(function () {
     });
 
     $('#btnExport').click(function () {
-        Export();
+        $(".overlay").show();
+        Export(function (e) {
+            $('.overlay').hide();
+        });
+
     });
 });

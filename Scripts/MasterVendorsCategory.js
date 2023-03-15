@@ -264,36 +264,36 @@ $(function () {
     GetSessions(function (e) {
         userid = e["UserID"];
         userName = e["UserName"];
-    });
 
-    var vendor = "";
-    GetSuppliers(vendor, function (data) {
-        if (data.length > 0) {
-            data = data.map(function (obj) {
-                obj['SUPPLIER CODE'] = obj['SUPPLIERID']; // Assign new key
-                obj['SUPPLIER NAME'] = obj['SUPPLIERNAME']; // Assign new key
-                obj['SUPPLIER CATEGORY'] = obj['SUPPLIERCATEGORY']; // Assign new key
-                delete obj['SUPPLIERID']; // Delete old key
-                delete obj['SUPPLIERNAME']; // Delete old key
-                delete obj['SUPPLIERCATEGORY']; // Delete old key
-                return obj;
-            });
+        var vendor = "";
+        GetSuppliers(vendor, function (data) {
+            if (data.length > 0) {
+                data = data.map(function (obj) {
+                    obj['SUPPLIER CODE'] = obj['SUPPLIERID']; // Assign new key
+                    obj['SUPPLIER NAME'] = obj['SUPPLIERNAME']; // Assign new key
+                    obj['SUPPLIER CATEGORY'] = obj['SUPPLIERCATEGORY']; // Assign new key
+                    delete obj['SUPPLIERID']; // Delete old key
+                    delete obj['SUPPLIERNAME']; // Delete old key
+                    delete obj['SUPPLIERCATEGORY']; // Delete old key
+                    return obj;
+                });
 
-            for (var i in data) {
-                arrVendors.push(data[i]['SUPPLIER CODE']); //insert all suppliercode into array
-                $("<option>", {
-                    value: data[i]["SUPPLIER CODE"],
-                    text: data[i]["SUPPLIER CODE"] + " | " + data[i]["SUPPLIER NAME"]
-                }).appendTo($("#selectVendor"));
+                for (var i in data) {
+                    arrVendors.push(data[i]['SUPPLIER CODE']); //insert all suppliercode into array
+                    $("<option>", {
+                        value: data[i]["SUPPLIER CODE"],
+                        text: data[i]["SUPPLIER CODE"] + " | " + data[i]["SUPPLIER NAME"]
+                    }).appendTo($("#selectVendor"));
+                }
+                $("#selectVendor").attr("data-placeholder", "Select Vendor Options").trigger("chosen:updated");
+                DrawTable(data);
+                $('#btnSave').css('display', 'inline-block');
             }
-            $("#selectVendor").attr("data-placeholder", "Select Vendor Options").trigger("chosen:updated");
-            DrawTable(data);
-            $('#btnSave').css('display', 'inline-block');
-        }
-        else {
-            alert('No Data Found');
-            $('#btnSave').css('display', 'none');
-        }
+            else {
+                alert('No Data Found');
+                $('#btnSave').css('display', 'none');
+            }
+        });
     });
 
     $("#btnFilter").click(function () {

@@ -267,6 +267,7 @@
     <Content Include="Scripts\DOSBuyerConfirmByPlant.js" />
     <Content Include="Scripts\DOSClone.js" />
     <Content Include="Scripts\DOSVendorReplyByPlant.js" />
+    <Content Include="Scripts\DOSVendorReplyByPlantCharValues.js" />
     <Content Include="Scripts\exceljs-1.10.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\moment.min.js" />

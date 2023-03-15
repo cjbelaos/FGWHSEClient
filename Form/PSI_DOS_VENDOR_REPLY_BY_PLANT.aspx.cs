@@ -149,14 +149,15 @@ namespace FGWHSEClient.Form
         public static string GetDOSVendorReplyByPlant(string strPLANT, string strVENDORS, string strPARTS)
         {
             DataTable dt = DPSI.PSI_GET_DOS_VENDOR_REPLY_BY_PLANT(strPLANT, strVENDORS, strPARTS);
+            
             if (dt.Rows.Count > 0)
             {
-                var StartDate = dt.Rows[0][217].ToString();
-                for (var i = 19; i < 217;)
+                var StartDate = dt.Rows[0][218].ToString();
+                for (var i = 20; i < 218;)
                 {
                     for (int j = 0; j < 198; j++)
                     {
-                        if (i == 19)
+                        if (i == 20)
                         {
                             dt.Columns[i].ColumnName = StartDate;
                         }
@@ -168,7 +169,13 @@ namespace FGWHSEClient.Form
                         i++;
                     }
                 }
-                dt.Columns.Remove("Column1");
+                if (dt.Columns.Contains("Column199")){
+                    dt.Columns.Remove("Column199");
+                }
+                else
+                {
+                    dt.Columns.Remove("Column1");
+                }
             }
 
             if (dtDOSVendorReply != null)
